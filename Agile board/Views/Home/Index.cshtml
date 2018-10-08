@@ -1,7 +1,32 @@
-﻿@{
+﻿@model IEnumerable<Agile_board.Models.Column>
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
-    <p>This is index</p>
+    <h1>My Agile Board</h1>
+
+    <div class="row">
+        @foreach (var column in Model)
+        {
+            <div class="col-sm-auto order-last" style="min-width:300px;">
+                @{ 
+                    var currButtonId = "AddTicketTo" + column.Name.Replace(" ", string.Empty);
+                }
+
+
+                <div class="row align-items-center">
+                    <div class="col-sm-auto ">
+                        <h2> @Html.DisplayFor(modelItem => column.Name)</h2>
+                    </div>
+                    <div class="col-sm-auto pl-1">
+                        <button id="@currButtonId" class="circleButton">+</button>
+                    </div>
+                </div>
+
+                @* some tickets here *@
+            </div>
+        }
+    </div>
+
 </div>
