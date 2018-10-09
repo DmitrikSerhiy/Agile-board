@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace Agile_board.Services
 {
@@ -16,7 +17,7 @@ namespace Agile_board.Services
 
         public IEnumerable<Column> GetColumns()
         {
-            return context.Columns.ToList();
+            return context.Columns.Include(t => t.Tickets).ToList();
         }
 
         public void AddColumn(string Name)

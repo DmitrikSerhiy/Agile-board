@@ -10,7 +10,7 @@
         @foreach (var column in Model)
         {
             <div class="col-sm-auto order-last" style="min-width:300px;">
-                @{ 
+                @{
                     var currButtonId = "AddTicketTo" + column.Name.Replace(" ", string.Empty);
                 }
 
@@ -20,13 +20,17 @@
                         <h2> @Html.DisplayFor(modelItem => column.Name)</h2>
                     </div>
                     <div class="col-sm-auto pl-1">
-                        <button id="@currButtonId" class="circleButton">+</button>
+                        <button id="@currButtonId" class="circleButton" data-toggle="modal" data-target="#AddNewTicketModal">+</button>
                     </div>
                 </div>
 
-                @* some tickets here *@
+                @foreach (var ticket in column.Tickets)
+                {
+                    @Html.Partial("Ticket", ticket);
+                }
             </div>
         }
     </div>
 
 </div>
+@Html.Partial("CreateTicket",)

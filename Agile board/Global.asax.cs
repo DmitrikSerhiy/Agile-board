@@ -14,7 +14,7 @@ namespace Agile_board
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new DbInitializer());
+           // Database.SetInitializer(new ColumnInitializer());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

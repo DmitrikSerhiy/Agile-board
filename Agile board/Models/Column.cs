@@ -9,6 +9,11 @@ namespace Agile_board.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public IEnumerable<Ticket> Tikets { get; set; }
+        public ICollection<Ticket> Tickets { get; set; }
+
+        public Column()
+        {
+            Tickets = new List<Ticket>();
+        }
     }
 }
