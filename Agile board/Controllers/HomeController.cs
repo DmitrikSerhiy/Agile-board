@@ -1,4 +1,5 @@
-﻿using Agile_board.Services;
+﻿using Agile_board.Models;
+using Agile_board.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +12,14 @@ namespace Agile_board.Controllers
     {
         private ColumnService columnService;
         private TicketService ticketService;
+        private Tuple<string, Ticket> tup;
         public HomeController()
         {
             columnService = new ColumnService();
-            //ticketService = new TicketService();
+            ticketService = new TicketService();
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             var columns = columnService.GetColumns();
@@ -26,16 +29,23 @@ namespace Agile_board.Controllers
         //add new column
 
         [HttpPost]
-        public ActionResult AddTicket()
+        [Route("Home/newTicket")]
+        public ActionResult AddTicket(string columnName, UnitOfWork unitOfWork)
         {
-            //to do
+            ticketService.AddTicketToColumn(columnName, unitOfWork.Ticket);
+            //if (!ModelState.IsValid)
+            //{
+            //    ViewData["InvalidModal"] = "true";
+            //    ViewData["InvalidTicketData"] = ticket;
+            //    ViewData["ColumnWithInvalidModalName"] = ColumnName;
+            //    tup = new Tuple<string, Ticket>(ColumnName, ticket);
+            //}
+            return RedirectToAction("Index");
         }
 
-        //public ActionResult Tickets(string ColumnName)
-        //{
-        //    var tickets = ticketService.GetTicketsForColumn(ColumnName);
-        //    return Model;
-        //}
-
+        public ActionResult TicketModal(UnitOfWork unitOfWork)
+        {
+            return PartialView(unitOfWork);
+        }
     }
 }

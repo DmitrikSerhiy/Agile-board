@@ -5,13 +5,28 @@
 
 <div class="jumbotron">
     <h1>My Agile Board</h1>
-
     <div class="row">
         @foreach (var column in Model)
         {
             <div class="col-sm-auto order-last" style="min-width:300px;">
                 @{
-                    var currButtonId = "AddTicketTo" + column.Name.Replace(" ", string.Empty);
+                    var currButtonId = "AddTicketTo" + column.Name.Replace(" ", string.Empty) + "buttonId";
+                    var currModalId = "AddTicketTo" + column.Name.Replace(" ", string.Empty) + "modalId";
+                    var currUnitOfWork = new Agile_board.Models.UnitOfWork() { Column = column };
+
+                    //if (!String.IsNullOrEmpty((string)ViewData["InvalidModal"]))
+                    //{
+                    //    if (column.Name == (string)ViewData["ColumnWithInvalidModalName"])
+                    //    {
+                    //        Html.RenderAction("TicketModal", "Home", new
+                    //        {
+                    //            tuple = new Tuple<string, Agile_board.Models.Ticket>(
+                    //                (string)ViewData["ColumnWithInvalidModalName"],
+                    //                (Agile_board.Models.Ticket)ViewData["InvalidTicketData"])
+                    //        });
+
+                    //    }
+                    //}
                 }
 
 
@@ -20,17 +35,18 @@
                         <h2> @Html.DisplayFor(modelItem => column.Name)</h2>
                     </div>
                     <div class="col-sm-auto pl-1">
-                        <button id="@currButtonId" class="circleButton" data-toggle="modal" data-target="#AddNewTicketModal">+</button>
+                        @Html.Partial("TicketModal", @currUnitOfWork)
+                        <button id="@currButtonId" class="circleButton" data-toggle="modal" data-target="#@currModalId">+</button>
                     </div>
                 </div>
 
                 @foreach (var ticket in column.Tickets)
                 {
-                    @Html.Partial("Ticket", ticket);
+                    @Html.Partial("TicketCard", ticket)
                 }
             </div>
         }
     </div>
 
 </div>
-@Html.Partial("CreateTicket",)
+

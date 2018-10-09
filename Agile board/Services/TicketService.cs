@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Agile_board.Services
 {
-    public class TicketService
+    public class TicketService : IDisposable
     {
         private AgileContext context;
         public TicketService()
@@ -14,9 +14,22 @@ namespace Agile_board.Services
             context = new AgileContext();
         }
 
-        public IEnumerable<Ticket> GetTicketsForColumn(string ColumnName)
+        public void AddTicketToColumn(string columnName, Ticket ticket)
         {
-            return context.Tickets.Where(c => c.Column.Name == ColumnName).ToList();
+            var currTicket = ticket;
+            currTicket.ColumnId = context.Columns.FirstOrDefault(c => c.Name == columnName).Id;
+            context.Tickets.Add(currTicket);
+            context.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            context.Dispose();
+        }
+
+        public IEnumerable<Ticket> GetTicketsForColumn(string columnName)
+        {
+            return context.Tickets.Where(c => c.Column.Name == columnName).ToList();
         }
     }
 }

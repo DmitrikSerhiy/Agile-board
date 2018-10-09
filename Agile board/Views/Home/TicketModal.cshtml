@@ -1,0 +1,38 @@
+﻿@model  Agile_board.Models.UnitOfWork 
+
+@{
+    var currModalId = "AddTicketTo" + Model.Column.Name.Replace(" ", string.Empty) + "modalId";
+}
+
+<div class="modal fade" id="@currModalId" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (Html.BeginForm("AddTicket", "Home", new { columnName = Model.Column.Name }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="modal-header">
+                    <h5 class="modal-title">Add ticket to Model.Column.Name.</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <div class="form-group">
+                        @Html.DisplayFor(m => m.Ticket.Name, "Name")
+                        @Html.EditorFor(m => m.Ticket.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Write a title" } })
+                    </div>
+
+                    <div class="form-group">
+                        @Html.DisplayFor(m => m.Ticket.Description, "Description")
+                        @Html.TextAreaFor(m => m.Ticket.Description, htmlAttributes: new { @class = "form-control", @rows = "3" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" value="Add" class="btn btn-secondary" />@*data-dismiss="modal"*@
+                </div>
+            }
+        </div>
+    </div>
+</div>
