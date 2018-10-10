@@ -10,22 +10,43 @@
 <div class="card bg-light border-secondary mb-3" style="max-width: 18rem;">
     <div Id="@cardHeaderId" class="card-header headerRules">
         @Model.Ticket.Name
-        <div class="row no-gutters">
-            <div class="col-sm-auto">
-                <button Id="@editButnId" class="btnImg btn btn-outline-light editSelector">
-                    <img src="~/Style/edit_icon.png" alt="Edit" style="width: 18px; height: 18px" data-toggle="modal" data-target="#@modalIdToOpen" />
-                </button>
+
+        <div class="row">
+            <div class="col-8">
+                <div class="row no-gutters justify-content-start">
+                    <div class="col-sm-auto">
+                        <button Id="toOne" class="btnImg btn btn-outline-light editSelector">
+                            <img src="~/Style/inProces_icon.png" alt="Edit" style="width: 18px; height: 18px" />
+                        </button>
+                    </div>
+                    <div class="col-sm-auto">
+                        <button Id="toOne" class="btnImg btn btn-outline-light editSelector">
+                            <img src="~/Style/todo_icon.png" alt="Edit" style="width: 18px; height: 18px" />
+                        </button>
+                    </div>
+                    <div class="col-sm-auto">
+                        <button Id="toOne" class="btnImg btn btn-outline-light editSelector">
+                            <img src="~/Style/done_icon.png" alt="Edit" style="width: 18px; height: 18px" />
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="col-sm-auto">
-                @using (Html.BeginForm("DeleteTicket", "Home", new { ticketId = Model.Ticket.Id }))
-                {
-                    <button Id="@deleteButnId" class="btnImg btn btn-outline-light deleteSelector" type="submit">
-                        <img src="~/Style/delete_icon.png" alt="Edit" style="width: 18px; height: 18px" />
-                    </button>
-                }
-            </div>
-            <div class="col-sm-auto">
-                
+            <div class="col-4">
+                <div class="row no-gutters justify-content-end">
+                    <div class="col-sm-auto">
+                        <button Id="@editButnId" class="btnImg btn btn-outline-light editSelector">
+                            <img src="~/Style/edit_icon.png" alt="Edit" style="width: 18px; height: 18px" data-toggle="modal" data-target="#@modalIdToOpen" />
+                        </button>
+                    </div>
+                    <div class="col-sm-auto">
+                        @using (Html.BeginForm("DeleteTicket", "Home", new { ticketId = Model.Ticket.Id }))
+                        {
+                            <button Id="@deleteButnId" class="btnImg btn btn-outline-light deleteSelector" type="submit">
+                                <img src="~/Style/delete_icon.png" alt="Edit" style="width: 18px; height: 18px" />
+                            </button>
+                        }
+                    </div>
+                </div>
             </div>
         </div>
 
