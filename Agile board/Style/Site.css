@@ -28,3 +28,14 @@
     outline: 0;
 }
 
+.btnImg {
+    width: 26px;
+    height: 26px;
+    border: none;
+    padding: 0px;
+    padding-left: 5px;
+}
+
+.editBtn:focus {
+    outline: 0;
+}

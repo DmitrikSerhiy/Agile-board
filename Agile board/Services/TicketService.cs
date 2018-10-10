@@ -22,6 +22,14 @@ namespace Agile_board.Services
             context.SaveChanges();
         }
 
+        public void EditTicket(Ticket editedTicked)
+        {
+            var ticket = new Ticket() { Name = editedTicked.Name, Description = editedTicked.Description };
+            //context.Entry(ticket).State = System.Data.Entity.EntityState.Modified;
+            context.Entry(editedTicked).State = System.Data.Entity.EntityState.Modified;
+            context.SaveChanges();
+        }
+
         public void Dispose()
         {
             context.Dispose();

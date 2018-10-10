@@ -12,7 +12,6 @@ namespace Agile_board.Controllers
     {
         private ColumnService columnService;
         private TicketService ticketService;
-        private Tuple<string, Ticket> tup;
         public HomeController()
         {
             columnService = new ColumnService();
@@ -43,9 +42,12 @@ namespace Agile_board.Controllers
             return RedirectToAction("Index");
         }
 
-        public ActionResult TicketModal(UnitOfWork unitOfWork)
+        [HttpPost]
+        public ActionResult EditTicket(UnitOfWork unitOfWork)
         {
-            return PartialView(unitOfWork);
+            ticketService.EditTicket(unitOfWork.Ticket);
+            //add validation
+            return RedirectToAction("Index");
         }
     }
 }
