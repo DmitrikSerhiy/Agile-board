@@ -1,6 +1,7 @@
 ﻿@model  Agile_board.Models.UnitOfWork
 
 @{
+    var uow = Model;
     var editButnId = "EditButton" + Model.Ticket.Id;
     var deleteButnId = "DeleteButton" + Model.Ticket.Id; ;
     var cardHeaderId = "cardHeader" + Model.Ticket.Id; ;
@@ -9,11 +10,29 @@
 <div class="card bg-light border-secondary mb-3" style="max-width: 18rem;">
     <div Id="@cardHeaderId" class="card-header headerRules">
         @Model.Ticket.Name
-        <button Id="@editButnId" class="btnImg btn btn-outline-light"><img src="~/Style/edit_icon.png" alt="Edit" style="width: 18px; height: 18px"  data-toggle="modal" data-target="#@modalIdToOpen"/></button>
-        <button Id="@deleteButnId" class="btnImg btn btn-outline-light"><img src="~/Style/delete_icon.png" alt="Edit" style="width: 18px; height: 18px" /></button>
+        <div class="row no-gutters">
+            <div class="col-sm-auto">
+                <button Id="@editButnId" class="btnImg btn btn-outline-light editSelector">
+                    <img src="~/Style/edit_icon.png" alt="Edit" style="width: 18px; height: 18px" data-toggle="modal" data-target="#@modalIdToOpen" />
+                </button>
+            </div>
+            <div class="col-sm-auto">
+                @using (Html.BeginForm("DeleteTicket", "Home", new { ticketId = Model.Ticket.Id }))
+                {
+                    <button Id="@deleteButnId" class="btnImg btn btn-outline-light deleteSelector" type="submit">
+                        <img src="~/Style/delete_icon.png" alt="Edit" style="width: 18px; height: 18px" />
+                    </button>
+                }
+            </div>
+            <div class="col-sm-auto">
+                
+            </div>
+        </div>
+
     </div>
     <div class="card-body">
         <p class="card-text"> @Model.Ticket.Description</p>
     </div>
 </div>
+
 

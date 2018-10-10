@@ -24,20 +24,21 @@ namespace Agile_board.Services
 
         public void EditTicket(Ticket editedTicked)
         {
-            var ticket = new Ticket() { Name = editedTicked.Name, Description = editedTicked.Description };
-            //context.Entry(ticket).State = System.Data.Entity.EntityState.Modified;
             context.Entry(editedTicked).State = System.Data.Entity.EntityState.Modified;
+            context.SaveChanges();
+        }
+
+        public void DeleteTicket(string ticketId)
+        {
+            var Id = Int32.Parse(ticketId);
+            var ticket = context.Tickets.FirstOrDefault(t => t.Id == Id);
+            context.Entry(ticket).State = System.Data.Entity.EntityState.Deleted;
             context.SaveChanges();
         }
 
         public void Dispose()
         {
             context.Dispose();
-        }
-
-        public IEnumerable<Ticket> GetTicketsForColumn(string columnName)
-        {
-            return context.Tickets.Where(c => c.Column.Name == columnName).ToList();
         }
     }
 }

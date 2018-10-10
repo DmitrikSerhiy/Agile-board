@@ -42,6 +42,13 @@ namespace Agile_board.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult DeleteTicket(string ticketId)
+        {
+            //add validation
+            ticketService.DeleteTicket(ticketId);
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public ActionResult EditTicket(UnitOfWork unitOfWork)
         {

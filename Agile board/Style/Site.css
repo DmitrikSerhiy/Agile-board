@@ -36,6 +36,15 @@
     padding-left: 5px;
 }
 
-.editBtn:focus {
+.btnImg:focus {
     outline: 0;
 }
+
+.editSelector{
+
+}
+
+.deleteSelector{
+
+}
+
