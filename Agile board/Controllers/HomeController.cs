@@ -56,5 +56,47 @@ namespace Agile_board.Controllers
             //add validation
             return RedirectToAction("Index");
         }
+
+        [HttpPost]
+        public ActionResult MoveTo(string targetColumn, string ticketId)
+        {
+            ticketService.MoveTicketToColumn(targetColumn, ticketId);
+            return Redirect(Request.UrlReferrer.ToString());// RedirectToAction("Index",);
+        }
+
+
+        //public ActionResult TicketCard(UnitOfWork unitOfWork)
+        //{
+        //    return PartialView(new UnitOfWork()
+        //    {
+        //        Column = columnService.GetColumn(unitOfWork.Column.Id),
+        //        Ticket = ticketService.GetTicket(unitOfWork.Ticket.Id)
+        //    });
+        //}
+
+
+
+
+
+
+
+
+        //public ActionResult TicketCard()
+        //{
+        //    return PartialView();
+        //}
+        //public ActionResult TicketModal()
+        //{
+        //    return PartialView();
+        //}
+
+        //public ActionResult TicketModal(UnitOfWork unitOfWork)
+        //{
+        //    return PartialView(new UnitOfWork()
+        //    {
+        //        Column = columnService.GetColumn(unitOfWork.Column.Id),
+        //        Ticket = ticketService.GetTicket(unitOfWork?.Ticket.Id ?? null)
+        //    });
+        //}
     }
 }

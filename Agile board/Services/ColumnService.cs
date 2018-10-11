@@ -15,6 +15,11 @@ namespace Agile_board.Services
             context = new AgileContext();
         }
 
+        public Column GetColumn(int columnId)
+        {
+            return context.Columns.FirstOrDefault(c => c.Id == columnId);
+        }
+
         public IEnumerable<Column> GetColumns()
         {
             return context.Columns.Include(t => t.Tickets).ToList();

@@ -227,7 +227,7 @@
     <Content Include="Style\delete_icon.png" />
     <Content Include="Style\done_icon.png" />
     <Content Include="Style\edit_icon.png" />
-    <Content Include="Style\inProces_icon.png" />
+    <Content Include="Style\inProgress_icon.png" />
     <Content Include="Style\Site.css" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

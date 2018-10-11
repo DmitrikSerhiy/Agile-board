@@ -1,11 +1,15 @@
 ﻿@model  Agile_board.Models.UnitOfWork
 
 @{
-    var uow = Model;
+    var columnName = Model.Column.Name.Replace(" ", string.Empty);
+    var ticketId = Model.Ticket.Id;
+
     var editButnId = "EditButton" + Model.Ticket.Id;
     var deleteButnId = "DeleteButton" + Model.Ticket.Id; ;
     var cardHeaderId = "cardHeader" + Model.Ticket.Id; ;
-    var modalIdToOpen = "EditModalFor" + Model.Column.Name.Replace(" ", string.Empty) + Model.Ticket.Id + "Id";
+
+    var currVivWithBtns = "Div" + columnName + Model.Ticket.Id + "Id";
+    var modalIdToOpen = "EditModalFor" + columnName + Model.Ticket.Id + "Id";
 }
 <div class="card bg-light border-secondary mb-3" style="max-width: 18rem;">
     <div Id="@cardHeaderId" class="card-header headerRules">
@@ -13,22 +17,7 @@
 
         <div class="row">
             <div class="col-8">
-                <div class="row no-gutters justify-content-start">
-                    <div class="col-sm-auto">
-                        <button Id="toOne" class="btnImg btn btn-outline-light editSelector">
-                            <img src="~/Style/inProces_icon.png" alt="Edit" style="width: 18px; height: 18px" />
-                        </button>
-                    </div>
-                    <div class="col-sm-auto">
-                        <button Id="toOne" class="btnImg btn btn-outline-light editSelector">
-                            <img src="~/Style/todo_icon.png" alt="Edit" style="width: 18px; height: 18px" />
-                        </button>
-                    </div>
-                    <div class="col-sm-auto">
-                        <button Id="toOne" class="btnImg btn btn-outline-light editSelector">
-                            <img src="~/Style/done_icon.png" alt="Edit" style="width: 18px; height: 18px" />
-                        </button>
-                    </div>
+                <div Id="@currVivWithBtns" class="row no-gutters justify-content-start">
                 </div>
             </div>
             <div class="col-4">
@@ -56,4 +45,59 @@
     </div>
 </div>
 
+<script>
+    var placeToIncert = $("#@currVivWithBtns");
+    var imgSources = getImgSource("@columnName");
+
+
+    placeToIncert.append(generateDivWithBtn(imgSources[0]));
+    placeToIncert.append(generateDivWithBtn(imgSources[1]));
+
+    function getImgSource(columnName) {
+        if (columnName === "TODO")
+            return ["inProgress_icon.png", "done_icon.png"];
+        if (columnName === "InProgress")
+            return ["todo_icon.png", "done_icon.png"];
+        if (columnName === "Done")
+            return ["todo_icon.png", "inProgress_icon.png"];
+    }
+
+    function generateDivWithBtn(imgSource) {
+        var div = $("<div class='col-sm-auto'>");
+        var btn = $("<button class='btnImg btn btn-outline-light editSelector'>");
+        var img = $("<img alt='Edit' style='width: 18px; height: 18px' />");
+        var btnId = imgSource.replace("_icon.png", "") + "btn" + "@ticketId" + "Id";
+
+        btn.attr("Id", btnId);
+        btn.attr("toggle", "tooltip");
+        btn.attr("placement", "top");
+        btn.attr("title", "Move to " + "'" + getRealColumnName(imgSource) + "'");
+        btn.click(function () { submit(getRealColumnName(imgSource), "@ticketId" ); }); 
+        img.attr("src", "/Style/" + imgSource);
+        btn.append(img);
+        div.append(btn);
+        return div;
+    }
+
+    function getRealColumnName(source) {
+        var colName = source.replace("_icon.png", "");
+        if (colName === "todo") return "TO DO";
+        if (colName === "inProgress") return "In Progress";
+        if (colName === "done") return "Done";
+    }
+
+    function submit(targetColumn, ticketId) {
+      //  $.post("/Home/MoveTo", { targetColumn, ticketId });
+        $.ajax({
+            type: "POST",
+            url: "/Home/MoveTo",
+            data: { targetColumn, ticketId },
+            success: function (response) {
+                location.reload();
+                //alert("goood");
+            }
+        });
+    }
+
+</script>
 

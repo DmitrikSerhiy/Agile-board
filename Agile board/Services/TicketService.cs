@@ -14,6 +14,11 @@ namespace Agile_board.Services
             context = new AgileContext();
         }
 
+        public Ticket GetTicket(int? ticketId)
+        {
+            return context.Tickets.FirstOrDefault(t => t.Id == ticketId);
+        }
+
         public void AddTicketToColumn(string columnName, Ticket ticket)
         {
             var currTicket = ticket;
@@ -33,6 +38,15 @@ namespace Agile_board.Services
             var Id = Int32.Parse(ticketId);
             var ticket = context.Tickets.FirstOrDefault(t => t.Id == Id);
             context.Entry(ticket).State = System.Data.Entity.EntityState.Deleted;
+            context.SaveChanges();
+        }
+
+        public void MoveTicketToColumn(string columnTargetName, string ticketId)
+        {
+            var Id = Int32.Parse(ticketId);
+            var targetColumnId = context.Columns.FirstOrDefault(c => c.Name == columnTargetName).Id;
+            var ticket = context.Tickets.FirstOrDefault(t => t.Id == Id);
+            ticket.ColumnId = targetColumnId;
             context.SaveChanges();
         }
 
