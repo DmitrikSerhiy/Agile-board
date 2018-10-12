@@ -8,62 +8,73 @@
     <div class="row">
         @foreach (var column in Model)
         {
-        <div class="col-sm-auto order-last" style="min-width:300px;">
-            @{
-                var currButtonId = "AddTicketTo" + column.Name.Replace(" ", string.Empty) + "buttonId";
-                var currModalId = "AdditionModalFor" + column.Name.Replace(" ", string.Empty) + "Id";
-                var currUnitOfWork = new Agile_board.Models.UnitOfWork() { Column = column, Ticket = null };
+            <div class="col-sm-auto order-last" style="min-width:300px;">
+                @{
+                    var currButtonId = "AddTicketTo" + column.Name.Replace(" ", string.Empty) + "buttonId";
+                    var currModalId = "AdditionModalFor" + column.Name.Replace(" ", string.Empty) + "Id";
+                    var currUnitOfWork = new Agile_board.Models.UnitOfWork() { Column = column, Ticket = null };
 
-                //if (!String.IsNullOrEmpty((string)ViewData["InvalidModal"]))
-                //{
-                //    if (column.Name == (string)ViewData["ColumnWithInvalidModalName"])
-                //    {
-                //        Html.RenderAction("TicketModal", "Home", new
-                //        {
-                //            tuple = new Tuple<string, Agile_board.Models.Ticket>(
-                //                (string)ViewData["ColumnWithInvalidModalName"],
-                //                (Agile_board.Models.Ticket)ViewData["InvalidTicketData"])
-                //        });
+                    //if (!String.IsNullOrEmpty((string)ViewData["InvalidModal"]))
+                    //{
+                    //    if (column.Name == (string)ViewData["ColumnWithInvalidModalName"])
+                    //    {
+                    //        Html.RenderAction("TicketModal", "Home", new
+                    //        {
+                    //            tuple = new Tuple<string, Agile_board.Models.Ticket>(
+                    //                (string)ViewData["ColumnWithInvalidModalName"],
+                    //                (Agile_board.Models.Ticket)ViewData["InvalidTicketData"])
+                    //        });
 
-                //    }
-                //}
-            }
+                    //    }
+                    //}
+                }
 
 
-            <div class="row align-items-center">
-                <div class="col-sm-auto ">
-                    <h2> @Html.DisplayFor(modelItem => column.Name)</h2>
+                <div class="row align-items-center">
+                    <div class="col-sm-auto ">
+                        <h2> @Html.DisplayFor(modelItem => column.Name)</h2>
+                    </div>
+                    <div class="col-sm-auto pl-1">
+                        @{ Html.RenderPartial("TicketModal", @currUnitOfWork); }
+                        <button id="@currButtonId" class="circleButton" data-toggle="modal" data-target="#@currModalId">+</button>
+                    </div>
                 </div>
-                <div class="col-sm-auto pl-1">
-                    @{ Html.RenderPartial("TicketModal", @currUnitOfWork); }
-                    <button id="@currButtonId" class="circleButton" data-toggle="modal" data-target="#@currModalId">+</button>
-                </div>
+
+
+                @foreach (var ticket in column.Tickets)
+                {
+                    var tempUnitOfWork = currUnitOfWork;
+                    tempUnitOfWork.Ticket = ticket;
+                    Html.RenderPartial("TicketCard", tempUnitOfWork);
+                    Html.RenderPartial("TicketModal", tempUnitOfWork);
+                }
             </div>
-
-
-            @foreach (var ticket in column.Tickets)
-            {
-                var tempUnitOfWork = currUnitOfWork;
-                tempUnitOfWork.Ticket = ticket;
-                Html.RenderPartial("TicketCard", tempUnitOfWork);
-                Html.RenderPartial("TicketModal", tempUnitOfWork);
-            }
-        </div>
         }
     </div>
 
 </div>
 
-@*<script>
-        var editBtns = document.getElementsByClassName("editBtn");
-        var headers = document.getElementsByClassName("card-header");
-
-        alert(editBtns[0].id + "   " +  editBtns[editBtns.length-1].id);
-        for (var i = 1; i <= headers.length; i++) {
-
-            editBtns[i].style.visibility = 'hidden';
-            headers[i].addEventListener("mouseover", function () { editBtns[i].style.visibility = 'visible'; });
-            headers[i].addEventListener("mouseout", function () { editBtns[i].style.visibility = 'hidden'; });
+<script>
+    $(document).ready(function () {
+        if ("@ViewData["InvalidTicketName"]") {
+            $("#@ViewData["ModalIdToOpen"]").modal('show');
+            @ViewData.Remove("InvalidTicketName");
+            //ViewData.Remove("ModalIdToOpen");
         }
-</script>*@
+        @*else {
+            $("#@ViewData["ModalIdToOpen"]").modal('fade');
+            @ViewData.Remove("ModalIdToOpen");
+        }*@
+    });
+            //var editBtns = document.getElementsByClassName("editBtn");
+            //var headers = document.getElementsByClassName("card-header");
+
+            //alert(editBtns[0].id + "   " +  editBtns[editBtns.length-1].id);
+            //for (var i = 1; i <= headers.length; i++) {
+
+            //    editBtns[i].style.visibility = 'hidden';
+            //    headers[i].addEventListener("mouseover", function () { editBtns[i].style.visibility = 'visible'; });
+            //    headers[i].addEventListener("mouseout", function () { editBtns[i].style.visibility = 'hidden'; });
+            //}
+</script>
 

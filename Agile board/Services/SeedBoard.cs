@@ -10,12 +10,17 @@ namespace Agile_board.Services
     public class SeedBoard
     {
         private AgileContext context;
-        public SeedBoard(AgileContext agileContext)
+        public SeedBoard(AgileContext agileContext, bool seed=false)
         {
-            context = agileContext;
+            if (seed)
+            {
+                context = agileContext;
+                SeedColumns();
+                SeedTickets();
+            }
         }
 
-        public void SeedColumns()
+        private void SeedColumns()
         {
             if (!context.Columns.Any())
             {
@@ -26,17 +31,17 @@ namespace Agile_board.Services
             }
         }
 
-        public void SeedTickets()
+        private void SeedTickets()
         {
             context.Tickets.AddRange(new List<Ticket>
             {
                 new Ticket {
-                    Name = "My first to do",
+                    Name = "Some todo",
                     Description ="some very long description. For example, I need some text to fill the space and see how does it look like!",
                     ColumnId = 1
                 },
                 new Ticket {
-                    Name = "My second to do",
+                    Name = "Another todo",
                     Description ="some very short description.",
                     ColumnId = 1
                 }
@@ -45,26 +50,25 @@ namespace Agile_board.Services
             context.Tickets.AddRange(new List<Ticket>
             {
                 new Ticket {
-                    Name = "My next in process",
+                    Name = "In process task",
                     Description ="very short desc.",
                     ColumnId = 2
                 },
                 new Ticket {
                     Name = "My next in process",
-                    Description ="very short desc.",
+                    Description ="just a desc",
                     ColumnId = 2
                 },
                 new Ticket {
-                    Name = "My first in process ticket",
+                    Name = "Trying hard",
                     Description ="some extremly long description. So, in process tickets are the tickets where you write some info about task which you currently are working on" +
                     " I need some text to fill the space and see how does it look like!",
                     ColumnId = 2
                 },
                 new Ticket {
-                    Name = "My next in process",
-                    Description ="very short desc.",
+                    Name = "No description",
                     ColumnId = 2
-                }
+                },
             });
             context.SaveChanges();
         }

@@ -1,4 +1,4 @@
-﻿@model  Agile_board.Models.UnitOfWork 
+﻿@model  Agile_board.Models.UnitOfWork
 
 @{
     var currModalId = "";
@@ -34,22 +34,26 @@
                             }
                         }
                     </h5>
-                    
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-
-                    @Html.HiddenFor(m => m.Ticket.Id)
-                    @Html.HiddenFor(m => m.Ticket.ColumnId)
-                    @Html.HiddenFor(m => m.Ticket.Column)
+                    @{
+                        if (action == "EditTicket")
+                        {
+                            @Html.HiddenFor(m => m.Ticket.Id)
+                            @Html.HiddenFor(m => m.Ticket.ColumnId)
+                        }
+                    }
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Ticket.Name, "Ticket title")
+                        @Html.LabelFor(m => m.Ticket.Name, "Title")
                         @Html.EditorFor(m => m.Ticket.Name, new { htmlAttributes = new { @class = "form-control", placeholder = "Write a title" } })
+                        @Html.ValidationMessageFor(m => m.Ticket.Name, "", htmlAttributes: new { @class = "text-danger" })
                     </div>
                     <div class="form-group">
-                        @Html.LabelFor(m => m.Ticket.Description, "Ticket description")
+                        @Html.LabelFor(m => m.Ticket.Description, "Description")
                         @Html.TextAreaFor(m => m.Ticket.Description, htmlAttributes: new { @class = "form-control", @rows = "3" })
                     </div>
                 </div>

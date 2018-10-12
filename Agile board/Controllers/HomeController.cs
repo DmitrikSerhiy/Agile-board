@@ -31,29 +31,32 @@ namespace Agile_board.Controllers
         [Route("Home/newTicket")]
         public ActionResult AddTicket(string columnName, UnitOfWork unitOfWork)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewData["InvalidTicketName"] = "true";
+                ViewData["ModalIdToOpen"] = "AdditionModalFor" + columnName.Replace(" ", string.Empty) + "Id";
+                return View("Index", columnService.GetColumns());
+            }
             ticketService.AddTicketToColumn(columnName, unitOfWork.Ticket);
-            //if (!ModelState.IsValid)
-            //{
-            //    ViewData["InvalidModal"] = "true";
-            //    ViewData["InvalidTicketData"] = ticket;
-            //    ViewData["ColumnWithInvalidModalName"] = ColumnName;
-            //    tup = new Tuple<string, Ticket>(ColumnName, ticket);
-            //}
             return RedirectToAction("Index");
         }
 
         public ActionResult DeleteTicket(string ticketId)
         {
-            //add validation
             ticketService.DeleteTicket(ticketId);
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult EditTicket(UnitOfWork unitOfWork)
+        public ActionResult EditTicket(string columnName, UnitOfWork unitOfWork)
         {
+            if (!ModelState.IsValid)
+            {
+                ViewData["InvalidTicketName"] = "true";
+                ViewData["ModalIdToOpen"] = "EditModalFor" + columnName.Replace(" ", string.Empty) + unitOfWork.Ticket.Id + "Id";
+                return View("Index", columnService.GetColumns());
+            }
             ticketService.EditTicket(unitOfWork.Ticket);
-            //add validation
             return RedirectToAction("Index");
         }
 

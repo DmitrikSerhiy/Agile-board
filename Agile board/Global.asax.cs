@@ -14,7 +14,9 @@ namespace Agile_board
     {
         protected void Application_Start()
         {
-           // Database.SetInitializer(new ColumnInitializer());
+            var context = new Models.AgileContext();
+            if (!context.Database.Exists())
+                new SeedBoard(context, true);
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

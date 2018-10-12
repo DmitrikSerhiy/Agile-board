@@ -167,6 +167,14 @@
     <Compile Include="Migrations\201810091532594_AddedAnotations.Designer.cs">
       <DependentUpon>201810091532594_AddedAnotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810112326549_RemoveColumnAnotation.cs" />
+    <Compile Include="Migrations\201810112326549_RemoveColumnAnotation.Designer.cs">
+      <DependentUpon>201810112326549_RemoveColumnAnotation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810112338238_MadeTicketTitlelarger.cs" />
+    <Compile Include="Migrations\201810112338238_MadeTicketTitlelarger.Designer.cs">
+      <DependentUpon>201810112338238_MadeTicketTitlelarger.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AgileContext.cs" />
     <Compile Include="Models\Column.cs" />
@@ -274,6 +282,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810091532594_AddedAnotations.resx">
       <DependentUpon>201810091532594_AddedAnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810112326549_RemoveColumnAnotation.resx">
+      <DependentUpon>201810112326549_RemoveColumnAnotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810112338238_MadeTicketTitlelarger.resx">
+      <DependentUpon>201810112338238_MadeTicketTitlelarger.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

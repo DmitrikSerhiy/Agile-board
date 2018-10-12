@@ -87,14 +87,12 @@
     }
 
     function submit(targetColumn, ticketId) {
-      //  $.post("/Home/MoveTo", { targetColumn, ticketId });
         $.ajax({
             type: "POST",
             url: "/Home/MoveTo",
             data: { targetColumn, ticketId },
             success: function (response) {
                 location.reload();
-                //alert("goood");
             }
         });
     }
