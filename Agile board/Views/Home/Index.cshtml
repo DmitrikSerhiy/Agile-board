@@ -13,20 +13,6 @@
                     var currButtonId = "AddTicketTo" + column.Name.Replace(" ", string.Empty) + "buttonId";
                     var currModalId = "AdditionModalFor" + column.Name.Replace(" ", string.Empty) + "Id";
                     var currUnitOfWork = new Agile_board.Models.UnitOfWork() { Column = column, Ticket = null };
-
-                    //if (!String.IsNullOrEmpty((string)ViewData["InvalidModal"]))
-                    //{
-                    //    if (column.Name == (string)ViewData["ColumnWithInvalidModalName"])
-                    //    {
-                    //        Html.RenderAction("TicketModal", "Home", new
-                    //        {
-                    //            tuple = new Tuple<string, Agile_board.Models.Ticket>(
-                    //                (string)ViewData["ColumnWithInvalidModalName"],
-                    //                (Agile_board.Models.Ticket)ViewData["InvalidTicketData"])
-                    //        });
-
-                    //    }
-                    //}
                 }
 
 
@@ -59,22 +45,8 @@
         if ("@ViewData["InvalidTicketName"]") {
             $("#@ViewData["ModalIdToOpen"]").modal('show');
             @ViewData.Remove("InvalidTicketName");
-            //ViewData.Remove("ModalIdToOpen");
-        }
-        @*else {
-            $("#@ViewData["ModalIdToOpen"]").modal('fade');
             @ViewData.Remove("ModalIdToOpen");
-        }*@
+        }
     });
-            //var editBtns = document.getElementsByClassName("editBtn");
-            //var headers = document.getElementsByClassName("card-header");
-
-            //alert(editBtns[0].id + "   " +  editBtns[editBtns.length-1].id);
-            //for (var i = 1; i <= headers.length; i++) {
-
-            //    editBtns[i].style.visibility = 'hidden';
-            //    headers[i].addEventListener("mouseover", function () { editBtns[i].style.visibility = 'visible'; });
-            //    headers[i].addEventListener("mouseout", function () { editBtns[i].style.visibility = 'hidden'; });
-            //}
 </script>
 

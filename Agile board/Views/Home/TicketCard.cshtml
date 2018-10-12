@@ -7,38 +7,41 @@
     var editButnId = "EditButton" + Model.Ticket.Id;
     var deleteButnId = "DeleteButton" + Model.Ticket.Id; ;
     var cardHeaderId = "cardHeader" + Model.Ticket.Id; ;
+    var mainDivWithBtnsId = "divWithBtns" + Model.Ticket.Id + "Id";
+    var whapperDiv = "wrapperDiv" + Model.Ticket.Id + "Id";
 
     var currVivWithBtns = "Div" + columnName + Model.Ticket.Id + "Id";
     var modalIdToOpen = "EditModalFor" + columnName + Model.Ticket.Id + "Id";
 }
-<div class="card bg-light border-secondary mb-3" style="max-width: 18rem;">
+<div class="card bg-light border-secondary mb-3" style="max-width: 320px;">
     <div Id="@cardHeaderId" class="card-header headerRules">
         @Model.Ticket.Name
 
-        <div class="row">
-            <div class="col-8">
-                <div Id="@currVivWithBtns" class="row no-gutters justify-content-start">
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="row no-gutters justify-content-end">
-                    <div class="col-sm-auto">
-                        <button Id="@editButnId" class="btnImg btn btn-outline-light editSelector">
-                            <img src="~/Style/edit_icon.png" alt="Edit" style="width: 18px; height: 18px" data-toggle="modal" data-target="#@modalIdToOpen" />
-                        </button>
+        <div id="@whapperDiv">
+            <div id="@mainDivWithBtnsId" class="row ">
+                <div class="col-8">
+                    <div Id="@currVivWithBtns" class="row no-gutters justify-content-start">
                     </div>
-                    <div class="col-sm-auto">
-                        @using (Html.BeginForm("DeleteTicket", "Home", new { ticketId = Model.Ticket.Id }))
-                        {
-                            <button Id="@deleteButnId" class="btnImg btn btn-outline-light deleteSelector" type="submit">
-                                <img src="~/Style/delete_icon.png" alt="Edit" style="width: 18px; height: 18px" />
+                </div>
+                <div class="col-4">
+                    <div class="row no-gutters justify-content-end">
+                        <div class="col-sm-auto">
+                            <button Id="@editButnId" class="btnImg btn btn-outline-light editSelector">
+                                <img src="~/Style/edit_icon.png" alt="Edit" style="width: 18px; height: 18px" data-toggle="modal" data-target="#@modalIdToOpen" />
                             </button>
-                        }
+                        </div>
+                        <div class="col-sm-auto">
+                            @using (Html.BeginForm("DeleteTicket", "Home", new { ticketId = Model.Ticket.Id }))
+                            {
+                                <button Id="@deleteButnId" class="btnImg btn btn-outline-light deleteSelector" type="submit">
+                                    <img src="~/Style/delete_icon.png" alt="Edit" style="width: 18px; height: 18px" />
+                                </button>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
     <div class="card-body">
         <p class="card-text"> @Model.Ticket.Description</p>
@@ -96,6 +99,13 @@
             }
         });
     }
+
+    $("#@mainDivWithBtnsId").css('visibility', 'hidden');
+
+    $("#@whapperDiv")
+    .mouseover(function () { $("#@mainDivWithBtnsId").css("visibility", "visible"); })
+    .mouseout(function () { $("#@mainDivWithBtnsId").css('visibility', 'hidden'); });
+
 
 </script>
 
