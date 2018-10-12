@@ -31,21 +31,13 @@
 .btnImg {
     width: 26px;
     height: 26px;
-    border: none;
-    padding: 0px;
-    padding-left: 5px;
+    border: none !important;
+    padding: 0px !important;
+    padding-left: 5px !important;
 }
 
 .btnImg:focus {
     outline: 0;
-}
-
-.editSelector{
-
-}
-
-.deleteSelector{
-
 }
 
 .plToInc {

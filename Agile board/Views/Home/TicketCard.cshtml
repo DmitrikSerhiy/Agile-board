@@ -13,7 +13,7 @@
     var currVivWithBtns = "Div" + columnName + Model.Ticket.Id + "Id";
     var modalIdToOpen = "EditModalFor" + columnName + Model.Ticket.Id + "Id";
 }
-<div class="card bg-light border-secondary mb-3" style="max-width: 320px;">
+<div class="card bg-light border-secondary mb-3" style="min-width: 310px; max-width: 320px;">
     <div Id="@cardHeaderId" class="card-header headerRules">
         @Model.Ticket.Name
 
@@ -26,14 +26,14 @@
                 <div class="col-4">
                     <div class="row no-gutters justify-content-end">
                         <div class="col-sm-auto">
-                            <button Id="@editButnId" class="btnImg btn btn-outline-light editSelector">
+                            <button Id="@editButnId" class="btn btn-outline-light btnImg">
                                 <img src="~/Style/edit_icon.png" alt="Edit" style="width: 18px; height: 18px" data-toggle="modal" data-target="#@modalIdToOpen" />
                             </button>
                         </div>
                         <div class="col-sm-auto">
                             @using (Html.BeginForm("DeleteTicket", "Home", new { ticketId = Model.Ticket.Id }))
                             {
-                                <button Id="@deleteButnId" class="btnImg btn btn-outline-light deleteSelector" type="submit">
+                                <button Id="@deleteButnId" class="btn btn-outline-light btnImg" type="submit">
                                     <img src="~/Style/delete_icon.png" alt="Edit" style="width: 18px; height: 18px" />
                                 </button>
                             }
@@ -67,7 +67,7 @@
 
     function generateDivWithBtn(imgSource) {
         var div = $("<div class='col-sm-auto'>");
-        var btn = $("<button class='btnImg btn btn-outline-light editSelector'>");
+        var btn = $("<button class='btn btn-outline-light btnImg'>");
         var img = $("<img alt='Edit' style='width: 18px; height: 18px' />");
         var btnId = imgSource.replace("_icon.png", "") + "btn" + "@ticketId" + "Id";
 
@@ -94,7 +94,7 @@
             type: "POST",
             url: "/Home/MoveTo",
             data: { targetColumn, ticketId },
-            success: function (response) {
+            success: function () {
                 location.reload();
             }
         });
